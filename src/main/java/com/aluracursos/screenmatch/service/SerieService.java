@@ -1,9 +1,12 @@
 package com.aluracursos.screenmatch.service;
 
+import com.aluracursos.screenmatch.dto.CitaDTO;
 import com.aluracursos.screenmatch.dto.EpisodioDTO;
 import com.aluracursos.screenmatch.dto.SerieDTO;
 import com.aluracursos.screenmatch.model.Categoria;
+import com.aluracursos.screenmatch.model.Cita;
 import com.aluracursos.screenmatch.model.Serie;
+import com.aluracursos.screenmatch.repository.CitaRepository;
 import com.aluracursos.screenmatch.repository.SerieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +19,9 @@ import java.util.stream.Collectors;
 public class SerieService {
     @Autowired
     private SerieRepository repository;
+    @Autowired
+    private CitaRepository citaRepository;
+
 
     public List<SerieDTO> obtenerTodasLasSeries(){
         return  convierteDatos(repository.findAll());
@@ -75,4 +81,14 @@ public class SerieService {
                         e.getNumeroEpisodio()))
                 .collect(Collectors.toList());
     }
+
+    public CitaDTO obtenerCitaRandom() {
+        Optional<Cita> cita = citaRepository.findRandomCita();
+        if(cita.isPresent()){
+            Cita c = cita.get();
+            return new CitaDTO(c.getSerie().getPoster(),c.getSerie().getTitulo(),c.getFrase(),c.getPersonaje());
+        }
+        return null;
+    }
+
 }

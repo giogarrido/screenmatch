@@ -1,5 +1,6 @@
 package com.aluracursos.screenmatch.controller;
 
+import com.aluracursos.screenmatch.dto.CitaDTO;
 import com.aluracursos.screenmatch.dto.EpisodioDTO;
 import com.aluracursos.screenmatch.dto.SerieDTO;
 import com.aluracursos.screenmatch.repository.SerieRepository;
@@ -59,5 +60,10 @@ public class SerieController {
     public List<SerieDTO> obtenerSeriesPorCategoria(@PathVariable String nombreGenero){
         return servicio.obtenerSeriesPorCategoria(nombreGenero);
     }
+
+    @GetMapping("/frases")
+    public CitaDTO obtenerCitaRandom(){return servicio.obtenerCitaRandom();}
+
+
 
 }
